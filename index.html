@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome</title>
+    <script src="react/build/react.js"></script>
+    <script src="react/build/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+      var Navbar = React.createClass({
+        propTypes: {
+          brand: React.PropTypes.string.isRequired
+        },
+        getDefaultProps: function(){
+          return {
+            brand: 'Life Cycle React',
+            color: 'light'
+          }
+        },
+        render: function(){
+          if(this.props.color == 'dark'){
+            var navClass = 'navbar navbar-inverse';
+          }else{
+            var navClass = 'navbar navbar-default';
+          }
+          return (
+            <div>
+            <nav className={navClass}>
+              <div className="container-fluid">
+
+                <div className="navbar-header">
+                  <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span className="sr-only">Toggle navigation</span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                  </button>
+                  <a className="navbar-brand" href="#">{this.props.brand}</a>
+                </div>
+
+
+                <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul className="nav navbar-nav">
+                    <li><a onClick={this.props.homeClick}>Home</a></li>
+                    <li><a onClick={this.props.aboutClick}>About</a></li>
+                  </ul>
+                </div>
+              </div>
+              </nav>
+            </div>
+          )
+        }
+      });
+
+      var Jumbotron = React.createClass({
+        getDefaultProps: function(){
+          return{
+            heading: 'Welcome!',
+            text: 'Welcome to our React website',
+            link: 'http://google.com'
+          }
+        },
+        render: function(){
+          return (
+            <div className="jumbotron">
+              <div className="container">
+                <h1>{this.props.heading}</h1>
+                <p>{this.props.text}</p>
+                <p><a className="btn btn-primary btn-lg" href={this.props.link} role="button">Learn more &raquo;</a></p>
+              </div>
+            </div>
+          )
+        }
+      });
+
+      var Footer = React.createClass({
+        render: function(){
+          return (
+            <div className="container">
+            <hr />
+
+              <footer>
+                <p>&copy; 2015 Company, Inc.</p>
+              </footer>
+            </div>
+          )
+        }
+      });
+
+      var PageHome = React.createClass({
+        render: function(){
+          return (
+            <div className="container">
+              <div className="row">
+                Main Content
+              </div>
+            </div>
+          )
+        }
+      });
+
+      var App = React.createClass({
+        getInitialState: function(){
+          return{
+            page: 'home'
+          }
+        },
+        handleHomeClick: function(){
+          this.setState({
+            page:'home'
+          })
+        },
+        handleAboutClick: function(){
+          this.setState({
+            page:'about'
+          })
+        },
+        render: function(){
+          return (
+            <div>
+              <Navbar
+              color='dark'
+              homeClick={this.handleHomeClick}
+              aboutClick={this.handleAboutClick} />
+              <Jumbotron />
+              <PageHome />
+              <Footer />
+            </div>
+          )
+        }
+      });
+
+      ReactDOM.render(
+        <App />,
+        document.getElementById('app')
+      );
+    </script>
+  </body>
+</html>
